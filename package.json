@@ -1,0 +1,38 @@
+{
+  "name": "shortstack-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "compile": "tsc",
+    "start": "npm run compile && node ./dist/index.js",
+    "dev": "nodemon --ext ts --exec 'node --loader ts-node/esm ./src/index.ts'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HenryGann/shortstack-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HenryGann/shortstack-api/issues"
+  },
+  "homepage": "https://github.com/HenryGann/shortstack-api#readme",
+  "description": "",
+  "dependencies": {
+    "@apollo/server": "^4.11.3",
+    "graphql": "^16.10.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.22.0",
+    "@types/node": "^22.13.10",
+    "@typescript-eslint/eslint-plugin": "^8.26.1",
+    "@typescript-eslint/parser": "^8.26.1",
+    "eslint": "^9.22.0",
+    "nodemon": "^3.1.9",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2",
+    "typescript-eslint": "^8.26.1"
+  }
+}
