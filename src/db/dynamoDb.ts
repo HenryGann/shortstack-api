@@ -1,6 +1,10 @@
 import DynamoClient from './dynamoClient.js';
-import { GetItemCommand } from '@aws-sdk/client-dynamodb';
-import { unmarshall } from '@aws-sdk/util-dynamodb';
+import { UrlMapping, APIResponse } from '../types/db.js';
+
+import { GetItemCommand, PutItemCommand } from '@aws-sdk/client-dynamodb';
+import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
+import getTTL from '../util/epoch.js';
+import { isValidUrl, getShort } from '../util/urlHandler.js';
 
 const getById = async (id: string) => {
   const input = {
@@ -18,6 +22,35 @@ const getById = async (id: string) => {
     return null;
   }
   return unmarshall(res.Item);
-}; 
+};
 
-export { getById };
+const createNewMapping = async (long: string): Promise<APIResponse> => {
+  // Ensure that the link is formatted correctly
+  if(!isValidUrl(long)){
+    return {
+      success: false,
+      message: 'URL is not valid'
+    };
+  }
+
+  const mapping: UrlMapping = {
+    long,
+    short: getShort(),
+    ttl: getTTL(),
+  };
+
+  const data = {
+    'TableName': 'shortstack',
+    'Item': marshall(mapping)
+  };
+
+  const command = new PutItemCommand(data);
+  const res = await DynamoClient.send(command);
+  console.log(res);
+  // Upload the mapping to aws
+  return {
+    success: true
+  };
+};
+
+export { getById, createNewMapping };

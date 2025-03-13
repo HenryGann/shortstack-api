@@ -1,35 +1,35 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
-import { getById } from './db/dynamoDb.js';
+import { createNewMapping, getById } from './db/dynamoDb.js';
 import 'dotenv/config';
-
-const urlMappings = [
-  {
-    short: 'abc123',
-    long: 'https://www.google.com/'
-  },
-  {
-    short: 'def456',
-    long: 'https://www.facebook.com/'
-  }
-];
 
 const typeDefs = `#graphql
   type UrlMapping {
     short: String
     long: String
+    ttl: Int
+  }
+
+  type APIResponse {
+    success: Boolean!,
+    message: String
   }
 
   type Query {
-    mappings: [UrlMapping],
     getByShort(short: String!): UrlMapping
+  }
+  
+  type Mutation {
+    createNewMapping(long: String!): APIResponse
   }
 `;
 
 const resolvers = {
   Query: {
-    mappings: () => urlMappings,
     getByShort: (_, { short }) => getById(short),
+  },
+  Mutation: {
+    createNewMapping: (_, { long }) => createNewMapping(long)
   }
 };
 
