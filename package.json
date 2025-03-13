@@ -6,7 +6,9 @@
   "scripts": {
     "compile": "tsc",
     "start": "npm run compile && node ./dist/index.js",
-    "dev": "nodemon --exec 'node --loader ts-node/esm' src/index.ts"
+    "dev": "nodemon --exec 'node --loader ts-node/esm' src/index.ts",
+    "prepare": "husky",
+    "lint": "npx eslint src/*.ts"
   },
   "repository": {
     "type": "git",
@@ -35,6 +37,7 @@
     "@typescript-eslint/eslint-plugin": "^8.26.1",
     "@typescript-eslint/parser": "^8.26.1",
     "eslint": "^9.22.0",
+    "husky": "^9.1.7",
     "nodemon": "^3.1.9",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.2",
