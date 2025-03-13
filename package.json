@@ -6,7 +6,7 @@
   "scripts": {
     "compile": "tsc",
     "start": "npm run compile && node ./dist/index.js",
-    "dev": "nodemon --ext ts --exec 'node --loader ts-node/esm ./src/index.ts'"
+    "dev": "nodemon --exec 'node --loader ts-node/esm' src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -22,7 +22,12 @@
   "description": "",
   "dependencies": {
     "@apollo/server": "^4.11.3",
-    "graphql": "^16.10.0"
+    "@aws-sdk/client-dynamodb": "^3.758.0",
+    "@aws-sdk/credential-providers": "^3.758.0",
+    "@aws-sdk/util-dynamodb": "^3.758.0",
+    "dotenv": "^16.4.7",
+    "graphql": "^16.10.0",
+    "install": "^0.13.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.22.0",

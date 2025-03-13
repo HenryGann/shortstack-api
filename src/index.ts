@@ -1,5 +1,7 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
+import { getById } from './db/dynamoDb.js';
+import 'dotenv/config';
 
 const urlMappings = [
   {
@@ -27,7 +29,7 @@ const typeDefs = `#graphql
 const resolvers = {
   Query: {
     mappings: () => urlMappings,
-    getByShort: (_, { short }) => urlMappings.find(mapping => mapping.short == short),
+    getByShort: (_, { short }) => getById(short),
   }
 };
 

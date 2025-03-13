@@ -5,9 +5,10 @@
       "lib": ["es2020"],
       "target": "es2020",
       "module": "esnext",
-      "moduleResolution": "node",
+      "moduleResolution": "bundler",
       "esModuleInterop": true,
-      "types": ["node"]
+      "types": ["node"],
+      "allowSyntheticDefaultImports": true
     },
     "include": ["src/**/*.ts"]
   }
