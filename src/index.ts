@@ -1,6 +1,7 @@
 import { ApolloServer } from '@apollo/server';
-import { startStandaloneServer } from '@apollo/server/standalone';
 import { createNewMapping, getById } from './db/dynamoDb.js';
+import { handlers, startServerAndCreateLambdaHandler } from '@as-integrations/aws-lambda';
+import { startStandaloneServer } from '@apollo/server/standalone';
 import 'dotenv/config';
 
 const typeDefs = `#graphql
@@ -38,8 +39,19 @@ const server = new ApolloServer({
   resolvers
 });
 
-const { url } = await startStandaloneServer(server, {
-  listen: { port: 3100 },
-});
 
-console.log(`🚀  Server ready at: ${url}`);
+if(!process.env.IS_LAMBDA){
+  const { url } = await startStandaloneServer(server, {
+    listen: { port: 3100 },
+  });
+  
+  console.log(`🚀  Server ready at: ${url}`);
+}
+
+export const handler = process.env.IS_LAMBDA ? startServerAndCreateLambdaHandler(
+  server,
+  handlers.createAPIGatewayProxyEventV2RequestHandler()
+)
+  :
+  null;
+

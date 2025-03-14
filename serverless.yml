@@ -1,0 +1,16 @@
+service: apollo-lambda
+provider:
+  name: aws
+  runtime: nodejs22.x
+  httpApi:
+    cors: true
+functions:
+  graphql:
+    handler: dist/index.handler
+    events:
+      - httpApi:
+          path: /
+          method: POST
+      - httpApi:
+          path: /
+          method: GET
