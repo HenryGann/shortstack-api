@@ -45,11 +45,11 @@ const createNewMapping = async (long: string): Promise<APIResponse> => {
   };
 
   const command = new PutItemCommand(data);
-  const res = await DynamoClient.send(command);
-  console.log(res);
+  await DynamoClient.send(command);
   // Upload the mapping to aws
   return {
-    success: true
+    success: true,
+    message: mapping.short
   };
 };
 
