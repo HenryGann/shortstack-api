@@ -1,4 +1,4 @@
-# Shortstack App
+# Shortstack API
 
 Shortstack is a url shortener that is built using Node.js, TypeScript, GraphQL and is deployed on AWS infrastructure.
 
